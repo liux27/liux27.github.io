@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+日前，中央纪委通报了部分地方和部门查处的7起在全面从严治党中落实主体责任和监督责任不力受到责任追究的典型问题。这7起问题是：
+　　湖北省地税局原党组书记、局长许建国等人因对巡视、抽查发现问题整改不力受到责任追究。2014年11月至2015年5月，湖北省巡视、抽查发现全省地税系统存在领导班子成员办公用房面积超标、违规修建办公楼、违规发放津贴补贴等严重问题。省地税局党组没有采取坚决措施彻底整改，致使有关问题得不到有效解决；省地税局纪检组监督不力，对违纪违规问题的处理失之于宽、失之于软。2015年6月，因落实主体责任和监督责任不力，许建国和该局党组成员、纪检组组长许国勇分别被免去相关职务。
+　　财政部驻北京监察专员办事处原党组书记、监察专员张更华等人因班子成员严重违纪问题受到责任追究。2013年，财政部驻北京监察专员办事处原党组成员、专员助理李长林带队检查某上市公司期间，违规要求该公司安排入住五星级酒店，多次接受宴请，并利用职务之便向该公司董事长提出借款1000万元。借款要求被拒绝后，未经请示向该公司发文作出处罚。张更华作为北京专员办党组主要负责人及检查组组长，在接到检查组有人索要款项问题的实名举报后，未进行了解，也未向组织报告。此外，李长林还包养情人并生有一子。2015年7月，李长林受到开除党籍、开除公职处分；因落实主体责任和监督责任不力，张更华被免去党组书记、监察专员职务，党组成员、副监察专员兼纪检组组长江乐森被诫勉谈话。
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>日前，中央纪委通报了部分地方和部门查处的7起在全面从严治党中落实主体责任和监督责任不力受到责任追究的典型问题。这7起问题是：
+　　湖北省地税局原党组书记、局长许建国等人因对巡视、抽查发现问题整改不力受到责任追究。2014年11月至2015年5月，湖北省巡视、抽查发现全省地税系统存在领导班子成员办公用房面积超标、违规修建办公楼、违规发放津贴补贴等严重问题。省地税局党组没有采取坚决措施彻底整改，致使有关问题得不到有效解决；省地税局纪检组监督不力，对违纪违规问题的处理失之于宽、失之于软。2015年6月，因落实主体责任和监督责任不力，许建国和该局党组成员、纪检组组长许国勇分别被免去相关职务。
+　　财政部驻北京监察专员办事处原党组书记、监察专员张更华等人因班子成员严重违纪问题受到责任追究。2013年，财政部驻北京监察专员办事处原党组成员、专员助理李长林带队检查某上市公司期间，违规要求该公司安排入住五星级酒店，多次接受宴请，并利用职务之便向该公司董事长提出借款1000万元。借款要求被拒绝后，未经请示向该公司发文作出处罚。张更华作为北京专员办党组主要负责人及检查组组长，在接到检查组有人索要款项问题的实名举报后，未进行了解，也未向组织报告。此外，李长林还包养情人并生有一子。2015年7月，李长林受到开除党籍、开除公职处分；因落实主体责任和监督责任不力，张更华被免去党组书记、监察专员职务，党组成员、副监察专员兼纪检组组长江乐森被诫勉谈话。</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "1.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
